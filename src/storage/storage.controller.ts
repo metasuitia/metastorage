@@ -7,8 +7,8 @@ export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
   @EventPattern('whatsapp.message')
-  create(@Payload() createProductDto: any) {
-    console.log(createProductDto);
+  create(@Payload() message: any) {
+    console.log(message);
     return "mensaje recivido de nats";
   }
 
