@@ -6,7 +6,7 @@ import { envs } from './config';
 
 async function bootstrap() {
 
-  const logger = new Logger('Main');
+  const logger = new Logger('Storage Meta Microservice');
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
@@ -26,7 +26,7 @@ async function bootstrap() {
   );
 
   await app.listen();
-  logger.log(`Products Microservice running on port ${ envs.port }`);
+  logger.log(`Meta StorageMicroservice running on port ${ envs.port }`);
 
 }
 bootstrap();
