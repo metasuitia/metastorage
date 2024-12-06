@@ -12,3 +12,118 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum MessageStatus {
+  read
+  unread
+  delivered
+}
+
+enum MessageType {
+  text
+  reaction
+  video
+  image
+  audio
+  location
+  contacts
+  interactive
+  template
+  document
+}
+
+enum MessageDirection {
+  incoming
+  outgoing
+}
+
+enum WhatsappStatus {
+  attended
+  notAttended
+}
+
+model WhatsappMessage {
+  id         String           @id @default(uuid()) // Usamos uuid() para generar IDs únicos en PostgreSQL
+  customer   Customer         @relation(fields: [customerId], references: [id])
+  message    String
+  to         String // Whatsapp account id receiving the message
+  status     MessageStatus
+  direction  MessageDirection
+  type       MessageType
+  mediaId    String           @default("")
+  timestamp  DateTime         @default(now())
+  customerId Int
+  attendant  Int
+}
+
+model Customer {
+  id               Int               @id @default(autoincrement())
+  name             String? // Customer name
+  phone            String?           @unique // Customer phone Number
+  attending        String?           // id of the attending user 0 = bot
+  registered       DateTime
+  lastActive       DateTime
+  wppStatus        WhatsappStatus
+  WhatsappMessage  WhatsappMessage[]
+  WhatsappImage    WhatsappImage[]
+  WhatsappAudio    WhatsappAudio[]
+  WhatsappVideo    WhatsappVideo[]
+  WhatsappDoc      WhatsappDoc[]
+  detail           String            @default("")
+}
+
+model WhatsappImage {
+  id         String           @id @default(uuid())
+  customer   Customer         @relation(fields: [customerId], references: [id])
+  message    Bytes
+  to         String // Whatsapp account id receiving the message
+  status     MessageStatus
+  direction  MessageDirection
+  type       MessageType
+  mediaId    String           @default("")
+  timestamp  DateTime         @default(now())
+  customerId Int
+  attendant  Int
+}
+
+model WhatsappAudio {
+  id         String           @id @default(uuid())
+  customer   Customer         @relation(fields: [customerId], references: [id])
+  message    Bytes
+  to         String // Whatsapp account id receiving the message
+  status     MessageStatus
+  direction  MessageDirection
+  type       MessageType
+  mediaId    String           @default("")
+  timestamp  DateTime         @default(now())
+  customerId Int
+  attendant  Int
+}
+
+model WhatsappVideo {
+  id         String           @id @default(uuid())
+  customer   Customer         @relation(fields: [customerId], references: [id])
+  message    Bytes
+  to         String // Whatsapp account id receiving the message
+  status     MessageStatus
+  direction  MessageDirection
+  type       MessageType
+  mediaId    String           @default("")
+  timestamp  DateTime         @default(now())
+  customerId Int
+  attendant  Int
+}
+
+model WhatsappDoc {
+  id         String           @id @default(uuid())
+  customer   Customer         @relation(fields: [customerId], references: [id])
+  message    Bytes
+  to         String // Whatsapp account id receiving the message
+  status     MessageStatus
+  direction  MessageDirection
+  type       MessageType
+  mediaId    String           @default("")
+  timestamp  DateTime         @default(now())
+  customerId Int
+  attendant  Int
+}
