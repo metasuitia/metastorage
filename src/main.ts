@@ -26,7 +26,7 @@ async function bootstrap() {
   );
 
   await app.listen();
-  logger.log(`Meta StorageMicroservice running on port ${ envs.port }`);
+  logger.log(`Meta Storage Microservice running on port ${ envs.port }`);
 
 }
 bootstrap();
