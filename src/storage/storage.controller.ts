@@ -1,14 +1,13 @@
 import { Controller } from '@nestjs/common';
 import { StorageService } from './storage.service';
 import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
-import { NewFilteredMessageDto } from './dtos';
-import { stringify } from 'querystring';
-import { filter } from 'rxjs';
 
 @Controller()
 export class StorageController {
+  /******************************************************************
+   Este controlador se encarga de recibir los mensajes o eventos 
+  *******************************************************************/
 
-  //TODO: hay que cambiarle el nombre por algo como event controller
   constructor(
     private readonly storageService: StorageService
   ) {}
